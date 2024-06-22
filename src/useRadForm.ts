@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 
 type ValidationErrors<T> = {
-  [K in keyof T]?: (value: T) => string | undefined;
+  [key: string]: (value: T) => string | undefined;
 };
 
 interface RadFormProps<T> {

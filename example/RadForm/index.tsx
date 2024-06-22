@@ -24,6 +24,10 @@ const RadForm = () => {
         password: (form: FormValues) => {
           if (!form.password) return 'Password is required';
         },
+        any: (form: FormValues) => {
+          if (!form.email && !form.password)
+            return 'Email and password are required';
+        },
       },
     });
 
