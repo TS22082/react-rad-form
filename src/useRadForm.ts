@@ -21,22 +21,25 @@ interface RadFormReturn<T> {
 /**
  * Custom hook to handle form state and validation.
  *
- * @param Object - An object containing the initial values and validation objects.
- * @returns The form handlers, values, loading state, and errors.
+ * @template T
+ * @param {Object} params - Object containing the initial values and validation objects.
+ * @param {T} params.initialValues - Initial values of the form.
+ * @param {ValidationErrors<T>} params.validate - Validation functions for the form fields.
+ * @returns {RadFormReturn<T>} The form handlers, values, loading state, and errors.
  *
  * @example
  * const { handleChange, handleSubmit, resetForm, values, isLoading, errors } = useRadForm({
  *   initialValues: {
- *    email: '',
- *    password: '',
+ *     email: '',
+ *     password: '',
  *   },
  *   validate: {
- *      email: (form: FormValues) => {
- *         if (!form.email) return 'Email is required';
- *      },
- *      password: (form: FormValues) => {
- *         if (!form.password) return 'Password is required';
- *      },
+ *     email: (form) => {
+ *       if (!form.email) return 'Email is required';
+ *     },
+ *     password: (form) => {
+ *       if (!form.password) return 'Password is required';
+ *     },
  *   },
  * });
  */
