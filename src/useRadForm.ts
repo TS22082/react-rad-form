@@ -10,7 +10,7 @@ interface UseRadFormProps<T> {
 }
 
 interface UseRadFormReturn<T> {
-  onChange: (field: keyof T, value: any) => void;
+  handleChange: (field: keyof T, value: any) => void;
   submit: (callback: (values: T) => Promise<void>) => Promise<void>;
   reset: () => void;
   current: T;
@@ -40,7 +40,7 @@ const useRadForm = <T extends object>({
     [errors]
   );
 
-  const onChange = useCallback(
+  const handleChange = useCallback(
     (field: keyof T, value: any) => {
       setCurrent((prev) => {
         const newItem = { ...prev, [field]: value };
@@ -81,7 +81,7 @@ const useRadForm = <T extends object>({
     setFormErrors({});
   }, [original]);
 
-  return { onChange, submit, reset, current, loading, formErrors };
+  return { handleChange, submit, reset, current, loading, formErrors };
 };
 
 export default useRadForm;
