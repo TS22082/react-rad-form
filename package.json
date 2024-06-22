@@ -1,6 +1,6 @@
 {
   "name": "react-rad-form",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "license": "MIT",
   "author": "geekcentric",
   "main": "dist/index.js",

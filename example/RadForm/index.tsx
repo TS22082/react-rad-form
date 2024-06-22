@@ -1,4 +1,4 @@
-import { useRadForm } from '../..';
+import { useRadForm } from '../../src/index';
 
 const RadForm = () => {
   type FormValues = {
@@ -7,24 +7,25 @@ const RadForm = () => {
     password: string;
   };
 
-  const { onChange, submit, reset, current, loading, formErrors } = useRadForm({
-    original: {
-      name: '',
-      email: '',
-      password: '',
-    },
-    errors: {
-      name: (form: FormValues) => {
-        if (!form.name) return 'Name is required';
+  const { handleChange, submit, reset, current, loading, formErrors } =
+    useRadForm({
+      original: {
+        name: '',
+        email: '',
+        password: '',
       },
-      email: (form: FormValues) => {
-        if (!form.email) return 'Email is required';
+      errors: {
+        name: (form: FormValues) => {
+          if (!form.name) return 'Name is required';
+        },
+        email: (form: FormValues) => {
+          if (!form.email) return 'Email is required';
+        },
+        password: (form: FormValues) => {
+          if (!form.password) return 'Password is required';
+        },
       },
-      password: (form: FormValues) => {
-        if (!form.password) return 'Password is required';
-      },
-    },
-  });
+    });
 
   const fakeRequest = (values: FormValues): Promise<void> => {
     return new Promise((resolve) => {
@@ -41,21 +42,21 @@ const RadForm = () => {
         type="text"
         placeholder="Name"
         value={current.name}
-        onChange={(e) => onChange('name', e.target.value)}
+        onChange={(e) => handleChange('name', e.target.value)}
       />
       <p>{formErrors.name}</p>
       <input
         type="email"
         placeholder="Email"
         value={current.email}
-        onChange={(e) => onChange('email', e.target.value)}
+        onChange={(e) => handleChange('email', e.target.value)}
       />
       <p>{formErrors.email}</p>
       <input
         type="password"
         placeholder="Password"
         value={current.password}
-        onChange={(e) => onChange('password', e.target.value)}
+        onChange={(e) => handleChange('password', e.target.value)}
       />
       <p>{formErrors.password}</p>
       <button

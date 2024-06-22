@@ -27,7 +27,7 @@ const RadForm = () => {
     password: string;
   };
 
-  const { onChange, submit, reset, current, loading, formErrors } =
+  const { handleChange, submit, reset, current, loading, formErrors } =
     useRadForm<FormValues>({
       original: {
         name: '',
@@ -62,21 +62,21 @@ const RadForm = () => {
         type="text"
         placeholder="Name"
         value={current.name}
-        onChange={(e) => onChange('name', e.target.value)}
+        onChange={(e) => handleChange('name', e.target.value)}
       />
       <p>{formErrors.name}</p>
       <input
         type="email"
         placeholder="Email"
         value={current.email}
-        onChange={(e) => onChange('email', e.target.value)}
+        onChange={(e) => handleChange('email', e.target.value)}
       />
       <p>{formErrors.email}</p>
       <input
         type="password"
         placeholder="Password"
         value={current.password}
-        onChange={(e) => onChange('password', e.target.value)}
+        onChange={(e) => handleChange('password', e.target.value)}
       />
       <p>{formErrors.password}</p>
       <button
