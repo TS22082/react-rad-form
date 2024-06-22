@@ -29,12 +29,12 @@ const RadForm = () => {
 
   const { handleChange, handleSubmit, resetForm, values, isLoading, errors } =
     useRadForm<FormValues>({
-      original: {
+      initialValues: {
         name: '',
-        email: '',
+        email: '',x
         password: '',
       },
-      errors: {
+      validate: {
         name: (item: FormValues) => {
           if (!item.name) return 'Name is required';
         },
