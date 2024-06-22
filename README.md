@@ -150,15 +150,12 @@ const { onChange, submit, reset, current, loading, formErrors } =
     errors: {
       name: (item: FormValues) => {
         if (!item.name) return 'Name is required';
-        return '';
       },
       email: (item: FormValues) => {
         if (!item.email) return 'Email is required';
-        return '';
       },
       password: (item: FormValues) => {
         if (!item.password) return 'Password is required';
-        return '';
       },
     },
   });
@@ -167,7 +164,7 @@ const { onChange, submit, reset, current, loading, formErrors } =
 ### Rad Features
 
 - Easy State Management: Manage your form state without the hassle
-- Very lightweight: Installed it's just 100kb in node_modules
+- Very lightweight: Installed it's just 100kb in `node_modules`
 - Built-in Validation: Define validation rules for your form fields
 - Loading State: Know when your form is submitting
 - Reset Form: Reset your form to its initial state
