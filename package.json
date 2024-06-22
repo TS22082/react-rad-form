@@ -1,6 +1,6 @@
 {
   "name": "react-rad-form",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "license": "MIT",
   "author": "geekcentric",
   "main": "dist/index.js",
@@ -19,6 +19,12 @@
     "start": "dts watch",
     "test": "dts test --passWithNoTests"
   },
+  "keywords": [
+    "react",
+    "form",
+    "validation",
+    "hook"
+  ],
   "husky": {
     "hooks": {
       "pre-commit": "dts lint"
