@@ -173,7 +173,8 @@ const { onChange, submit, reset, current, loading, formErrors } =
 
 ### Contributing
 
-Contributions are welcome! Please open an issue or submit a pull request.
+[Contributions](https://github.com/TS22082/react-rad-form) are welcome! Please open an issue or submit a pull request.
+Repo: https://github.com/TS22082/react-rad-form
 
 ### License
 
