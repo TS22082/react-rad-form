@@ -167,6 +167,7 @@ const { onChange, submit, reset, current, loading, formErrors } =
 ### Rad Features
 
 - Easy State Management: Manage your form state without the hassle
+- Very lightweight: Installed it's just 100kb in node_modules
 - Built-in Validation: Define validation rules for your form fields
 - Loading State: Know when your form is submitting
 - Reset Form: Reset your form to its initial state
@@ -174,7 +175,6 @@ const { onChange, submit, reset, current, loading, formErrors } =
 ### Contributing
 
 [Contributions](https://github.com/TS22082/react-rad-form) are welcome! Please open an issue or submit a pull request.
-Repo: https://github.com/TS22082/react-rad-form
 
 ### License
 
