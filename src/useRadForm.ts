@@ -18,6 +18,29 @@ interface RadFormReturn<T> {
   errors: Partial<Record<keyof T, string>>;
 }
 
+/**
+ * Custom hook to handle form state and validation.
+ *
+ * @param Object - An object containing the initial values and validation objects.
+ * @returns The form handlers, values, loading state, and errors.
+ *
+ * @example
+ * const { handleChange, handleSubmit, resetForm, values, isLoading, errors } = useRadForm({
+ *   initialValues: {
+ *    email: '',
+ *    password: '',
+ *   },
+ *   validate: {
+ *      email: (form: FormValues) => {
+ *         if (!form.email) return 'Email is required';
+ *      },
+ *      password: (form: FormValues) => {
+ *         if (!form.password) return 'Password is required';
+ *      },
+ *   },
+ * });
+ */
+
 const useRadForm = <T extends object>({
   initialValues,
   validate,
