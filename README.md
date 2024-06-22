@@ -37,15 +37,12 @@ const RadForm = () => {
       errors: {
         name: (item: FormValues) => {
           if (!item.name) return 'Name is required';
-          return '';
         },
         email: (item: FormValues) => {
           if (!item.email) return 'Email is required';
-          return '';
         },
         password: (item: FormValues) => {
           if (!item.password) return 'Password is required';
-          return '';
         },
       },
     });
