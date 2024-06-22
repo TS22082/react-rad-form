@@ -1,87 +1,85 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 
-type Errors<T> = {
+type ValidationErrors<T> = {
   [K in keyof T]?: (value: T) => string | undefined;
 };
 
-interface UseRadFormProps<T> {
-  original: T;
-  errors: Errors<T>;
+interface RadFormProps<T> {
+  initialValues: T;
+  validate: ValidationErrors<T>;
 }
 
-interface UseRadFormReturn<T> {
+interface RadFormReturn<T> {
   handleChange: (field: keyof T, value: any) => void;
-  submit: (callback: (values: T) => Promise<void>) => Promise<void>;
-  reset: () => void;
-  current: T;
-  loading: boolean;
-  formErrors: Partial<Record<keyof T, string>>;
+  handleSubmit: (callback: (values: T) => Promise<void>) => Promise<void>;
+  resetForm: () => void;
+  values: T;
+  isLoading: boolean;
+  errors: Partial<Record<keyof T, string>>;
 }
 
 const useRadForm = <T extends object>({
-  original,
-  errors,
-}: UseRadFormProps<T>): UseRadFormReturn<T> => {
-  const [current, setCurrent] = useState<T>(original);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [formErrors, setFormErrors] = useState<
-    Partial<Record<keyof T, string>>
-  >({});
+  initialValues,
+  validate,
+}: RadFormProps<T>): RadFormReturn<T> => {
+  const [values, setValues] = useState<T>(initialValues);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [errors, setErrors] = useState<Partial<Record<keyof T, string>>>({});
 
-  const validate = useCallback(
-    (item: T) => {
+  const validateForm = useCallback(
+    (formValues: T) => {
       let newErrors: Partial<Record<keyof T, string>> = {};
-      for (const key in errors) {
-        const error = errors[key]?.(item);
+      for (const key in validate) {
+        const error = validate[key]?.(formValues);
         if (error) newErrors[key as keyof T] = error;
       }
       return newErrors;
     },
-    [errors]
+    [validate]
   );
 
   const handleChange = useCallback(
     (field: keyof T, value: any) => {
-      setCurrent((prev) => {
-        const newItem = { ...prev, [field]: value };
-        setFormErrors(validate(newItem));
-        return newItem;
+      setValues((prev) => {
+        const newFormValues = { ...prev, [field]: value };
+        setErrors(validateForm(newFormValues));
+        return newFormValues;
       });
     },
-    [validate]
+    [validateForm]
   );
 
-  const submit = useCallback(
-    async (callback: (values: T) => Promise<void>) => {
-      const newErrors = validate(current);
-      setFormErrors(newErrors);
+  const handleSubmit = useCallback(
+    async (callback: (formValues: T) => Promise<void>) => {
+      const newErrors = validateForm(values);
+      setErrors(newErrors);
 
       if (Object.keys(newErrors).length === 0) {
-        setLoading(true);
+        setIsLoading(true);
         try {
-          await callback(current);
+          await callback(values);
         } finally {
-          setLoading(false);
+          setIsLoading(false);
         }
       }
     },
-    [current, validate]
+    [values, validateForm]
   );
 
   const triggeredRef = useRef(false);
   useEffect(() => {
     if (!triggeredRef.current) {
       triggeredRef.current = true;
-      setFormErrors(validate(current));
+      setErrors(validateForm(values));
     }
-  }, [current, validate]);
+  }, [values, validateForm]);
 
-  const reset = useCallback(() => {
-    setCurrent(original);
-    setFormErrors({});
-  }, [original]);
+  const resetForm = useCallback(() => {
+    setValues(initialValues);
+    setErrors({});
+  }, [initialValues]);
 
-  return { handleChange, submit, reset, current, loading, formErrors };
+  return { handleChange, handleSubmit, resetForm, values, isLoading, errors };
 };
 
 export default useRadForm;

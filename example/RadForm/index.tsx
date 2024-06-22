@@ -7,14 +7,14 @@ const RadForm = () => {
     password: string;
   };
 
-  const { handleChange, submit, reset, current, loading, formErrors } =
+  const { handleChange, handleSubmit, resetForm, values, isLoading, errors } =
     useRadForm({
-      original: {
+      initialValues: {
         name: '',
         email: '',
         password: '',
       },
-      errors: {
+      validate: {
         name: (form: FormValues) => {
           if (!form.name) return 'Name is required';
         },
@@ -41,39 +41,39 @@ const RadForm = () => {
       <input
         type="text"
         placeholder="Name"
-        value={current.name}
+        value={values.name}
         onChange={(e) => handleChange('name', e.target.value)}
       />
-      <p>{formErrors.name}</p>
+      <p>{errors.name}</p>
       <input
         type="email"
         placeholder="Email"
-        value={current.email}
+        value={values.email}
         onChange={(e) => handleChange('email', e.target.value)}
       />
-      <p>{formErrors.email}</p>
+      <p>{errors.email}</p>
       <input
         type="password"
         placeholder="Password"
-        value={current.password}
+        value={values.password}
         onChange={(e) => handleChange('password', e.target.value)}
       />
-      <p>{formErrors.password}</p>
+      <p>{errors.password}</p>
       <button
         onClick={(e) => {
           e.preventDefault();
-          submit(async (values) => {
+          handleSubmit(async (values) => {
             await fakeRequest(values);
-            reset();
+            resetForm();
           });
         }}
       >
-        {loading ? 'Loading...' : 'Submit'}
+        {isLoading ? 'Loading...' : 'Submit'}
       </button>
-      {loading && <p>Loading...</p>}
+      {isLoading && <p>Loading...</p>}
 
-      <pre>{JSON.stringify(current, null, 2)}</pre>
-      <pre>{JSON.stringify(formErrors, null, 2)}</pre>
+      <pre>{JSON.stringify(values, null, 2)}</pre>
+      <pre>{JSON.stringify(errors, null, 2)}</pre>
     </form>
   );
 };

@@ -27,7 +27,7 @@ const RadForm = () => {
     password: string;
   };
 
-  const { handleChange, submit, reset, current, loading, formErrors } =
+  const { handleChange, handleSubmit, resetForm, values, isLoading, errors } =
     useRadForm<FormValues>({
       original: {
         name: '',
@@ -84,7 +84,7 @@ const RadForm = () => {
           e.preventDefault();
           submit(async (values) => {
             await fakeRequest(values);
-            reset();
+            resetForm();
           });
         }}
       >
@@ -92,7 +92,7 @@ const RadForm = () => {
       </button>
       {loading && <p>Loading...</p>}
 
-      <pre>{JSON.stringify(current, null, 2)}</pre>
+      <pre>{JSON.stringify(values, null, 2)}</pre>
     </form>
   );
 };
@@ -107,12 +107,12 @@ useRadForm takes care of your form state and validation in a rad way.
 `useRafForm`
 
 ```tsx
-const { onChange, submit, reset, current, loading, formErrors } =
+const { handleChange, handleSubmit, resetForm, values, isLoading, errors } =
   useRadForm<FormValues>({
-    original: {
+    initialValues: {
       // Initial form values
     },
-    errors: {
+    validate: {
       // Validation rules
     },
   });
@@ -125,12 +125,12 @@ const { onChange, submit, reset, current, loading, formErrors } =
 
 ### Return Values
 
-- `onChange`: Update form values
-- `submit`: Submit form values
-- `reset`: Reset form values
-- `current`: Current form values
-- `loading`: Loading state
-- `formErrors`: Form validation errors
+- `handleChange`: Update form values
+- `handleSubmit`: Submit form values
+- `resetForm`: Reset form values
+- `values`: Current form values
+- `isLoading`: Loading state
+- `errors`: Form validation errors
 
 ### Example Validation
 
@@ -139,12 +139,12 @@ Define validation rules for your form fields inside the errors object:
 ```tsx
 const { onChange, submit, reset, current, loading, formErrors } =
   useRadForm<FormValues>({
-    original: {
+    initialValues: {
       name: '',
       email: '',
       password: '',
     },
-    errors: {
+    validate: {
       name: (item: FormValues) => {
         if (!item.name) return 'Name is required';
       },
