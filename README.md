@@ -1,4 +1,4 @@
-## use-rad-form
+# react-rad-form
 
 use-rad-form is a rad React hook that simplifies form handling with built-in validation and state management. Perfect for your next awesome project!
 
@@ -7,7 +7,7 @@ use-rad-form is a rad React hook that simplifies form handling with built-in val
 Get the latest version of use-rad-form from npm:
 
 ```bash
-npm install use-rad-form
+npm install react-rad-form
 ```
 
 ### Usage
